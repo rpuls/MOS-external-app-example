@@ -1,0 +1,11 @@
+# The .mos package is consumed by MOS as an archive and built into a Linux
+# container. Line endings must not depend on the contributor's platform or
+# core.autocrlf setting: CRLF in a Dockerfile or entrypoint.sh breaks the build
+# or the container's shell.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.avif binary
