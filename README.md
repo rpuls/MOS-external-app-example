@@ -14,7 +14,7 @@ https://github.com/rpuls/MOS-external-app-example
 
 MOS resolves the default branch to an immutable commit, downloads that commit's archive, extracts `.mos/`, validates the manifest, and shows you what the package is asking for before anything is built.
 
-Requires MOS 0.11.0 or newer.
+Requires MOS 0.17.0 or newer — the first release of manifest generation 1, which this package targets with `manifestVersion: 1`.
 
 ## How MOS sees this repository
 
@@ -34,6 +34,8 @@ One repository is one app. MOS learns the app id from the manifest, not from the
 ## The rules that are easy to get wrong
 
 These are the ones that will reject your package, ordered by how likely they are to bite.
+
+**The manifest must declare `manifestVersion: 1`.** Generation 1 is the locked manifest contract; a manifest without the field is rejected. Fields outside the contract are ignored, never fatal — but they also do nothing, so don't ship them expecting behavior.
 
 **Only certain filenames are allowed at the package root.** `manifest.json`, `Dockerfile`, `Dockerfile.<service>`, `README.md`, `entrypoint.sh`, `icon.*`, and `privacy-review.json` are permitted implicitly. **Anything else must be listed in `manifest.packageFiles`** or the package is rejected. That is why `server.js` appears there.
 
@@ -71,7 +73,7 @@ Because external ids are namespaced against collisions, this package installs as
 2. Change `id`, `name`, `summary`, and the `catalog` block.
 3. Point the `Dockerfile` at your own digest-pinned base image.
 4. List every non-implicit file you ship in `packageFiles`.
-5. Set `minimumMosVersion` to the oldest MOS release you have actually tested against.
+5. Keep `manifestVersion: 1` and set `minimumMosVersion` to the oldest MOS release you have actually tested against — never lower than `0.17.0`, where generation 1 was introduced.
 6. Make sure the service named in `health.url` is the one carrying your route.
 
 ## License
