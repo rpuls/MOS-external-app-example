@@ -1,0 +1,15 @@
+{
+  "name": "my-own-suite",
+  "owner": {
+    "name": "Rasmus Puls",
+    "url": "https://myownsuite.org"
+  },
+  "description": "Tools for My Own Suite (MOS): package any open-source app so it installs on a MOS server from a GitHub URL.",
+  "plugins": [
+    {
+      "name": "mos",
+      "source": "./",
+      "description": "Package an open-source app for My Own Suite: /mos:add-app writes the .mos/ package in a repository you control and tells you what to paste into Suite Manager."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "mos",
+  "version": "0.1.0",
+  "description": "Package an open-source app for My Own Suite (MOS). /mos:add-app reads the app's documentation, writes a .mos/ package with a digest-pinned Dockerfile in a repository you control, validates it, pushes it, and tells you what to paste into Suite Manager.",
+  "author": {
+    "name": "Rasmus Puls",
+    "url": "https://myownsuite.org"
+  },
+  "homepage": "https://myownsuite.org/docs/guides/apps/",
+  "repository": "https://github.com/rpuls/MOS-external-app-example",
+  "license": "MIT",
+  "keywords": ["my-own-suite", "mos", "self-hosting", "docker", "packaging"]
+}

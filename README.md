@@ -59,7 +59,7 @@ These are the ones that will reject your package, ordered by how likely they are
 
 **External apps run under a constrained capability profile**, and it fails closed. You may not use `privileged`, `ports`, `network`/`networkMode`, `devices`, `capAdd`, `securityOpt`, the Docker socket, host bind mounts, raw proxy config, or host-agent hooks. Volumes must be **named** (`notes-data:/data`), never host paths.
 
-**Your app can never mark itself as trusted.** `trust`, `verified`, `official`, `certified`, and `mosReviewed` are rejected outright. You also can't reuse an official app id (`immich`, `radicale`, `seafile`, `vaultwarden`, `onlyoffice`, `stirling-pdf`) or use a reserved `mos-` / `official-` / `suite-` prefix. Every external package installs as **unverified** — that is not a setting.
+**Your app can never mark itself as trusted.** `trust`, `verified`, `official`, `certified`, and `mosReviewed` are rejected outright. You also can't reuse an id the official catalog uses (`immich`, `seafile`, `vaultwarden` and the rest) or use a reserved `mos-` / `official-` / `suite-` prefix. Every external package installs as **unverified** — that is not a setting.
 
 **You cannot hand MOS raw proxy configuration.** A route is `host` plus `service`, and a route key whose name matches `caddy`, `directive`, or `snippet` is rejected, as are top-level `caddy`, `caddyfile`, and `compose` keys. This is about key names and structure, not about words: your prose is never scanned, so a description may say whatever it needs to.
 
@@ -80,6 +80,18 @@ Because external ids are namespaced against collisions, this package installs as
 | Health | `GET /healthz` on the routed service |
 | Catalog presentation | `catalog`, `homepage`, and `onboarding` blocks |
 | Architecture support | `architectures: ["amd64", "arm64"]`, matching the pinned multi-arch base image |
+
+## Package an app with Claude Code
+
+This repository is also a [Claude Code](https://claude.com/claude-code) plugin. Add it once, then ask it to package any open-source app, whether you maintain the app or found it on GitHub:
+
+```
+/plugin marketplace add rpuls/MOS-external-app-example
+/plugin install mos@my-own-suite
+/mos:add-app help me install https://github.com/<owner>/<app> on my MOS server
+```
+
+The skill reads the app's documentation, writes the `.mos/` package in a repository you control, pins the image by digest, validates and pushes it, and tells you the URL to paste into Suite Manager. The plugin files (`.claude-plugin/`, `skills/`) sit outside `.mos/`, so MOS never downloads them.
 
 ## Adapting this for your own app
 
